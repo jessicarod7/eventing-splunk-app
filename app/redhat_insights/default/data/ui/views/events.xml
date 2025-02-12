@@ -42,15 +42,17 @@ index=redhatinsights
       ) 
 | eval time=strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%3N")
 | eval url = case(
-        event_type=="new-suggestion", ROS_URL.'payload.inventory_id', 
-        application=="Malware", MALWARE_URL.'payload.host_id', 
-        event_type=="new-advisory", ADVISORY_URL.'payload.advisory_name', 
-        application=="Vulnerability", CVE_URL.'payload.reported_cve', 
-        event_type=="drift-baseline-detected", DRIFT_URL.'payload.baseline_id', 
-        event_type=="report-upload-failed", INVENTORY_URL.'payload.host_id', 
-        event_type=="policy-triggered", POLICIES_URL.'payload.policy_id', 
-        event_type="compliance-below-threshold", COMPLIANCE_URL.'payload.host_id', 
-        !isnull('payload.rule_url'), 'payload.rule_url'
+        event_type=="new-suggestion", ROS_URL.'payload.inventory_id'.'query_params',
+        application=="Malware", MALWARE_URL.'payload.host_id'.'query_params',
+        event_type=="new-advisory", ADVISORY_URL.'payload.advisory_name'.'query_params',
+        application=="Vulnerability", CVE_URL.'payload.reported_cve'.'query_params',
+        event_type=="drift-baseline-detected", DRIFT_URL.'payload.baseline_id'.'query_params',
+        event_type=="report-upload-failed", INVENTORY_URL.'payload.host_id'.'query_params',
+        event_type=="policy-triggered", POLICIES_URL.'payload.policy_id'.'query_params',
+        event_type="compliance-below-threshold", COMPLIANCE_URL.'payload.host_id'.'query_params',
+        !isnull('payload.rule_url'), 'payload.rule_url'.'query_params',
+        !isnull('inventory_url'), 'inventory_url',
+        !isnull('application_url'), 'application_url'
     )
 | eval event_type = case(
       event_type=="new-suggestion", "New suggestion", 
