@@ -12,14 +12,14 @@ index=redhatinsights
 | stats by timestamp, events, application, event_type, org_id, account_id, context.display_name
 | eval _raw=events
 | kv
-| eval DRIFT_URL = "https://console.redhat.com/insights/drift/baselines/"
-| eval POLICIES_URL = "https://console.redhat.com/insights/policies/policy/"
-| eval COMPLIANCE_URL = "https://console.redhat.com/insights/compliance/systems/"
-| eval INVENTORY_URL = "https://console.redhat.com/insights/inventory/"
-| eval CVE_URL = "https://console.redhat.com/insights/vulnerability/cves/"
-| eval ADVISORY_URL = "https://console.redhat.com/insights/patch/advisories/"
-| eval MALWARE_URL = "https://console.redhat.com/insights/malware/systems/"
-| eval ROS_URL = "https://console.redhat.com/insights/ros/"
+| eval DRIFT_URL = 'environment_url'."/insights/drift/baselines/"
+| eval POLICIES_URL = 'environment_url'."/insights/policies/policy/"
+| eval COMPLIANCE_URL = 'environment_url'."/insights/compliance/systems/"
+| eval INVENTORY_URL = 'environment_url'."/insights/inventory/"
+| eval CVE_URL = 'environment_url'."/insights/vulnerability/cves/"
+| eval ADVISORY_URL = 'environment_url'."/insights/patch/advisories/"
+| eval MALWARE_URL = 'environment_url'."/insights/malware/systems/"
+| eval ROS_URL = 'environment_url'."/insights/ros/"
 | eval application = case(
       application=="resource-optimization", "Resource Optimization",
       application=="malware-detection", "Malware",
